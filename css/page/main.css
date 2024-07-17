@@ -1,0 +1,34 @@
+@import url(../components/button.css);
+@import url(../components/input.css);
+@import url(../components/combobox.css);
+@import url(../components/table.css);
+@import url(../components/dialog.css);
+@font-face {
+    font-family: 'Roboto';
+    src: url('/assets/font/GoogleSans-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+    font-family: 'Roboto';
+}
+body {
+    margin: 0;
+    background-color: #e3e3e3;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.warning {
+    color: red;
+}
+

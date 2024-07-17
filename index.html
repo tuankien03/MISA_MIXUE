@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MISA</title>
+    <link rel="stylesheet" href="../css/page/main.css">
+    <link rel="stylesheet" href="../css/layout/customer.css">
+    <link rel="stylesheet" href="/css/components/form.css">
+    <link rel="stylesheet" href="/css/components/combobox.css">
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container-left">
+            <div class="header-toggle"><img src="../assets/img/toggle.png" alt=""></div>
+            <div class="logo"><img src="../assets/cukcuk-logo.png" alt=""></div>
+            <div class="branch">Chi nhánh Hà Nội <img src="../assets/icon/btn-next-page.svg" alt="drop-down"></div>
+        </div>
+        <div class="container-right">
+            <div class="avatar"><img src="../assets/icon/avatar-default.png" alt="avatar"></div>
+            <div class="username">Nguyễn Tuấn Kiên</div>
+            <div class="infor-menu"><img src="../assets/icon/option.png" alt=""></div>
+
+        </div>
+    </header>
+
+    <div class="dialog-wrapper">
+        <div class="m-dialog">
+            <span class="m-dialog__close-btn"><img class="m-icon-24" src="/assets/icon/close-48.png" alt=""></span>
+            <div class="m-dialog__header">Title</div>
+            <div class="m-dialog__content">
+                    <img class="m-icon-24" src="/assets/icon/warning-48.png" alt="">
+                    <span>Bạn có muốn xoá khách hàng này không</span>
+            </div>
+            <div class="m-dialog__footer">
+                <button class="m-btn m-second-btn cancel-btn">Hủy</button>
+                <button class="m-btn  m-main-btn submit-btn">Xác nhận</button>
+            
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="form-wrapper">
+        <form action="" class="add-form">
+            <div class="form-header">
+                <h2>Thông tin nhân viên</h2>
+            </div>
+            <div class="form-content">
+                <div class="form-group">
+                    <div class="column-50">
+                        <div class="form-group__item m-input">
+                            <label for="employeeCode">Mã nhân viên<span class="warning">*</span></label>
+                            <input type="text" name="employeeCode" id="employeeCode" required>
+                        </div>
+                        <div class="form-group__item m-input">
+                            <label for="fullName">Họ và tên<span class="warning">*</span></label>
+                            <input type="text" name="fullName" id="fullName" required>
+                        </div>
+                    </div>
+                    <div class="column-50">
+                        <div class="form-group__item m-input">
+                            <label for="dateOfBirth">Ngày sinh</label>
+                            <input type="date" name="dateOfBirth" id="dateOfBirth">
+                        </div>
+                        <div class="form-group__item m-input">
+                            <label for="gender">Giới tính</label>
+                            <div class="radio-group">
+                                <input type="radio" name="gender" value="0" >Nam</label>
+                                <input type="radio" name="gender" value="1" > <span>Nữ</span>
+                                <input type="radio" name="gender" value="2" > <span>Khác</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="form-group__item m-input role">
+                        <label for="role">Vị trí</label>
+                        <div class="m-combobox">
+                            <input type="text" name="positionName" hidden>
+                            <div class="input-wrapper">
+                                <div class="tag-container">
+                                    <input type="text" class="search-input" placeholder="Chọn vị trí" >
+
+                                </div>
+                                <div class="dropdown"><img class="icon" src="/assets/icon/btn-next-page.svg" alt="">
+                                </div>
+                            </div>
+                            <div class="options-container">
+                                <label><input type="checkbox" class="select-all">Chọn tất cả</label>
+                                <label><input type="checkbox" value="Nhân viên">Nhân viên</label>
+                                <label><input type="checkbox" value="Trưởng phòng">Trưởng phòng</label>
+                                <label><input type="checkbox" value="Giám đốc">Giám đốc</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column-50">
+                        <div class="form-group__item m-input">
+                            <label for="identityNumber">Số CMTND<span class="warning">*</span></label>
+                            <input type="text" name="identityNumber" id="identityNumber" required>
+                        </div>
+                        <div class="form-group__item m-input">
+                            <label for="identityDate">Ngày cấp</label>
+                            <input type="date" name="identityDate" id="identityDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group__item m-input">
+                        <label for="department">Phòng ban</label>
+                        <div class="m-combobox">
+                            <input type="text" name="departmentName" hidden>
+                            <div class="input-wrapper">
+                                <div class="tag-container">
+                                    <input type="text" class="search-input" placeholder="Chọn phòng ban">
+                                </div>
+                                <div class="dropdown"><img class="icon" src="/assets/icon/btn-next-page.svg" alt="">
+                                </div>
+                            </div>
+                            <div class="options-container">
+                                <label><input type="checkbox" class="select-all">Chọn tất cả</label>
+                                <label><input type="checkbox" value="Kế toán">Kế toán</label>
+                                <label><input type="checkbox" value="IT">IT</label>
+                                <label><input type="checkbox" value="Nhân sự">Nhân sự</label>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group__item m-input">
+                        <label for="identityPlace">Nơi cấp</label>
+                        <input type="text" id="identityPlace" name="identityPlace">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group__item m-input">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" name="address" id="address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group__item m-input">
+                        <label for="phoneNumber">ĐT Di động<span class="warning">*</span></label>
+                        <input type="text" id="phoneNumber" name="phoneNumber" required>
+                    </div>
+                    <div class="form-group__item m-input">
+                        <label for="landline">ĐT Cố định</label>
+                        <input type="text" id="landline">
+                    </div>
+                    <div class="form-group__item m-input">
+                        <label for="email">Email<span class="warning">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group__item m-input">
+                        <label for="bankaccount">Tài khoản ngân hàng</label>
+                        <input type="text" id="bankaccount">
+                    </div>
+                    <div class="form-group__item m-input">
+                        <label for="bank">Tên ngân hàng</label>
+                        <input type="text" id="bank">
+                    </div>
+                    <div class="form-group__item m-input">
+                        <label for="bankbranch">Chi Nhánh</label>
+                        <input type="text" id="bankbranch">
+                    </div>
+                </div>
+                <div class="fix-footer"></div>
+                <div class="form-footer">
+                    <button class="m-btn m-second-btn cancel-btn" type="button">Huỷ</button>
+                    <button class="m-btn m-main-btn submit-btn" type="button">Cất</button>
+                </div>
+        </form>
+    </div>
+    </div>
+
+   
+
+    <div class="wrap-container">
+
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="menu">
+                <li class="menu-item active"><a href="#"><img class="item__icon" src="../assets/icon/dashboard.png"
+                            alt="icon"><span>Trang Chủ</span></a></li>
+                <li class="menu-item"><a href="#"><img class="item__icon" src="../assets/icon/report.png"
+                            alt="icon"><span>Báo
+                            cáo</span></a></li>
+                <li class="menu-item"><a href="#"><img class="item__icon" src="../assets/icon/dic-employee.png"
+                            alt="icon"><span>Nhân viên</span></a></li>
+                <li class="menu-item"><a href="#"><img class="item__icon" src="../assets/icon/setting.png"
+                            alt="icon"><span>Cài
+                            đặt</span></a></li>
+            </ul>
+            <div class="sidebar-toggle"><img src="../assets/icon/arrowhead-left-outline.png" alt="icon"><span>Thu
+                    gọn</span>
+            </div>
+        </nav>
+
+        <div class="main">
+
+            <div class="header-content">
+                <h1>Quản lí nhân viên</h1>
+                <div class="m-main-btn addition-btn"><img class="m-icon-20" src="../assets/icon/add.png" alt="">Thêm mới</div>
+            </div>
+            <div class="content">
+                <div class="toolbar">
+                    <div class="form-input">
+                        <input type="text" name="search" id="search" placeholder="Tìm theo mã, họ tên">
+                        <button class="search-btn"><img src="../assets/icon/search.png" alt="icon"></button>
+                    </div>
+                    <div class="toolbar-container-right">
+                        <div class="export-btn"><img src="../assets/icon/refresh.png" alt=""></div>
+                        <div class="reload-btn"><img src="../assets/icon/export-excel-50.png" alt=""></div>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã nhân viên</th>
+                                <th>Họ và tên</th>
+                                <th>Giới tính</th>
+                                <th>Ngày sinh</th>
+                                <th>Email</th>
+                                <th>Địa chỉ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>NV001</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>Nam</td>
+                                <td>01/01/1990</td>
+                                <td>ádfafawefa@gmail.com</td>
+                                <td>102 nhà k, Lĩnh Nam, HN
+                                    <div class="crud">
+                                        <div class="customer-id" style="display: none;">11452b0c-768e-5ff7-0d63-eeb1d8ed8cef</div>
+                                        <div class="crud-btn edit-btn"><img src="../assets/icon/document-online.png"
+                                                alt="">
+                                        </div>
+                                        <div class="crud-btn delete-btn"><img src="../assets/icon/close-48.png" alt="">
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <div class="pagination-total">
+                        Tổng: 100
+                    </div>
+                    <div class="page">
+                        <div class="page-item">Số bản ghi/trang</div>
+                        <div class="page-item">
+                            <select name="record-per-page" id="record-per-page">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+                        <div class="page-item"><img src="../assets/icon/btn-prev-page.svg" alt=""></div>
+                        <div class="page-item"><img src="../assets/icon/btn-next-page.svg" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+    <script src="./js/customerpage.js"></script>
+    <script src="/js/components/combobox.js"></script>
+    <script type="module">
+        new CustomerPage();
+        new Combobox();
+    </script>
+</body>
+
+</html>

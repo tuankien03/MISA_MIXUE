@@ -1,0 +1,108 @@
+@import url(../components/icon.css);
+
+.m-combobox {
+    position: relative;
+    border: 1px solid #E6E6E6;
+    background-color: #FFFFFF;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.m-combobox .input-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 8px;
+    padding-left: 12px;
+}
+
+.m-combobox .input-wrapper input {
+    width: auto;
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    height: 100%;
+}
+.m-combobox .tag-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    gap: 4px;
+    flex-wrap: wrap;
+
+}
+
+.m-combobox .input-wrapper .dropdown {
+    float: right;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    height: 100%;
+    gap: 4px;
+    border-left: 1px solid rgba(23,27,42,0.24);
+}
+
+.m-combobox .input-wrapper .dropdown img {
+    transform: rotate(90deg);
+}
+
+
+.m-combobox .options-container {
+    display: none;
+    position: absolute;
+    max-height: 125px;
+    top: 36px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    border: 1px solid #E6E6E6;
+    background-color: #FFFFFF;
+    z-index: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #9E9E9E #FFFFFF;
+}
+
+.m-combobox.open .options-container {
+    display: flex;
+}
+
+.options-container label {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.options-container label input {
+    margin: 0 10px;
+}
+
+
+.options-container label:hover {
+    background: rgba(80,184,60,0.1);
+}
+
+.m-combobox .tag {
+    background: #50B83C;
+    color: white;
+    padding: 2px 5px;
+    font-size: 14px;
+    margin: 2px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+
+.m-combobox .tag .remove-tag {
+    margin-left: 5px;
+    cursor: pointer;
+}

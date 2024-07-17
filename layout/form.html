@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/components/form.css">
+</head>
+
+<body>
+    <form action="" class="add-form">
+        <div class="form-header">
+            <h2>Thông tin nhân viên</h2>
+        </div>
+        <div class="form-content">
+            <div class="form-group">
+                <div class="form-group__item m-input">
+                    <label for="employee-code">Mã nhân viên <span class="warning">*</span></label>
+                    <input type="text" name="employee-code" id="employee-code">
+                </div>
+                <div class="form-group__item m-input">
+                    <label for="full-name">Họ và tên</label>
+                    <input type="text" name="full-name" id="full-name">
+                </div>
+                <div class="form-group__item m-input">
+                    <label for="birthday">Ngày sinh</label>
+                    <input type="date" name="birthday" id="birthday">
+                </div>
+                <div class="form-group__item m-input">
+                    <label for="sex">Giới tính</label>
+                    <div class="radio-group">
+                        <label></label><input type="radio" name="sex" value="Nam" checked>Nam</label>
+                        <input type="radio" name="sex" value="Nữ"> <span>Nữ</span>
+                        <input type="radio" name="sex"> <span>Khác</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group__item m-input role" >
+                    <div class="m-combobox">
+        <input type="text" name="roles" hidden>
+        <div class="input-wrapper">
+            <div class="tag-container">
+                <input type="text" class="search-input" placeholder="Search...">
+            </div>
+            <div class="dropdown"><img class="icon" src="/assets/icon/btn-next-page.svg" alt=""></div>
+        </div>
+        <div class="options-container">
+            <label><input type="checkbox" value="Nhân viên" class="select-all">Chọn tất cả</label>
+            <label><input type="checkbox" value="Nhân viên">Nhân viên</label>
+            <label><input type="checkbox" value="Trưởng phòng">Trưởng phòng</label>
+            <label><input type="checkbox" value="Giám đốc">Giám đốc</label>
+            <label><input type="checkbox" value="Chủ tich">Chủ tich</label>
+            <label><input type="checkbox" value="Dev">Dev</label>
+            <label><input type="checkbox" value="Kế toán">Kế toán</label>
+        </div>
+    </div>
+                </div>
+                <div class="form-group__item m-input" >
+                    <label for="CMTND">Số CMTND</label>
+                    <input type="text" name="CMTND" id="CMTND">
+                </div>
+                <div class="form-group__item m-input">
+                    <label for="birthday">Ngày sinh</label>
+                    <input type="date" name="birthday" id="birthday">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group__item m-input">
+                    <label for="department">Phòng ban</label>
+                    <select name="department" id="department">
+                        <option value="1">Nhân sự</option>
+                        <option value="2">Kế toán</option>
+                        <option value="3">Kinh doanh</option>
+                    </select>
+                </div>
+                <div class="form-group__item m-input">
+                    <label for="receiveddate">Ngày cấp</label>
+                    <input type="date" name="receiveddate" id="receiveddate">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group__item m-input">
+                    <label for="department">Phòng ban</label>
+                    <input type="text" id="department">
+                </div>
+                <div class="form-group__item m-input">
+                    <label for="issuedby">Nơi cấp</label>
+                    <input type="text" id="issuedby">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group__item m-input">
+                    <label for="address">Địa chỉ</label>
+                    <input type="text" id="address">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group__item m-input">
+                    <label for="telephone">ĐT Di động</label>
+                    <input type="text" id="telephone">
+                </div>
+                <div class="form-group__item m-input">
+                    <label for="landline">ĐT Cố đinh</label>
+                    <input type="text" id="landline">
+                </div>
+                <div class="form-group__item m-input">
+                    <label for="email">Email</label>
+                    <input type="email" id="email">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group__item m-input">
+                    <label for="bankaccount">Tài khoản ngân hàng</label>
+                    <input type="text" id="bankaccount">
+                </div>
+                <div class="form-group__item m-input">
+                    <label for="bank">Tên ngân hàng</label>
+                    <input type="text" id="bank">
+                </div>
+                <div class="form-group__item m-input">
+                    <label for="bankbranch">Chi Nhánh</label>
+                    <input type="text" id="bankbranch">
+                </div>
+            </div>
+            <div class="fix-footer"></div>
+            <div class="form-footer">
+                <button class="m-btn m-second-btn cancel-btn" type="button">Huỷ</button>
+                <button class="m-btn m-main-btn submit-btn" type="button">Cất</button>
+            </div>
+
+    </form>
+</body>
+
+</html>

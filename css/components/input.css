@@ -1,0 +1,11 @@
+.m-input > label{
+    margin-bottom: 8px;
+    font: 14px;
+}
+.m-input input{
+    height: 32px;
+    border: 1px solid #EBEBEB;
+    border-radius: 4px;
+    padding: 0 12px;
+}
+

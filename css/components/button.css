@@ -1,0 +1,38 @@
+button {
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+
+.m-btn {
+    height: 36px;
+    width: 79px;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+
+.m-btn:disabled {
+    opacity: 56%;
+}
+
+.m-main-btn {
+    background-color: #50B83C;
+    color: white;
+}
+
+.m-main-btn:active {
+    background-color: #3D8E2D;
+}
+
+
+
+.m-second-btn {
+    background-color: #ffffff;
+    border: 1px solid #E6E6E6;
+}
+
+.m-second-btn:active {
+    background-color: #F5F5F5;
+}

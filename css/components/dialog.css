@@ -1,0 +1,52 @@
+@import url(../components/button.css);
+@import url(../components/icon.css);
+.dialog-wrapper {
+    display: none;
+    position: absolute;
+    height: calc(100% - 56px);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+}
+
+
+.m-dialog {
+    position: relative;
+    background-color: white;
+    width: 400px;
+    height: 173px;
+    padding: 24px;
+}
+
+.m-dialog .m-dialog__close-btn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    cursor: pointer;
+}
+
+
+.m-dialog .m-dialog__header {
+    font-size: 20px;
+    margin-bottom: 24px;
+    font-weight: bold;
+}
+
+.m-dialog .m-dialog__content {
+    display: flex;
+    justify-self: start;
+    align-items: center; 
+    gap: 8px;
+}
+
+.m-dialog .m-dialog__footer {
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    bottom: 24px;
+    right: 24px;
+}
+ 
