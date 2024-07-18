@@ -12,9 +12,6 @@ class CustomerPage {
 
     async initEvents() {
 
-        // Click button để hiển thị form thêm mới
-        const addbtn = document.querySelector('.addition-btn');
-        addbtn.onclick = this.showAddForm;
 
         // Click button để đóng form thêm mới
         const closebtn = document.querySelector('.form-wrapper .cancel-btn');
@@ -22,9 +19,17 @@ class CustomerPage {
 
         await this.loadData();
         this.deleteCustomer();
-        this.onClickAddCustomer();
         this.onclickEditEmployee();
+        this.searchEmployee();
+        this.addEmployee();
 
+    }
+
+    addEmployee() {
+        const addBtn = document.querySelector('.addition-btn');
+        addBtn.onclick = this.showAddForm;
+
+        this.onClickAddCustomer();
     }
 
     /**
@@ -158,36 +163,56 @@ class CustomerPage {
      * author: NT Kiên (22/06/2024)
      */
     onClickAddCustomer() {
-        const submitBtn = document.querySelector('.form-wrapper .submit-btn');
-        submitBtn.onclick = async () => {
-            const error = this.validateForm();
-            if (error.isVaild) {
-                const formdata = new FormData(document.querySelector('.form-wrapper .add-form'));
-                console.log(formdata);
-                const formDataJSON = {};
-                formdata.forEach((value, key) => {
-                    formDataJSON[key] = value;
-                });
-                console.log(formDataJSON);
-                const result = await fetch('https://cukcuk.manhnv.net/api/v1/Employees', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formDataJSON),
-                });
-                console.log(result);
-                const closeBtn = document.querySelector('.dialog-wrapper .m-dialog__close-btn');
-                const cancelBtn = document.querySelector('.dialog-wrapper .cancel-btn');
-                closeBtn.onclick = this.closeDialog;
-                cancelBtn.onclick = this.closeDialog;
+        try {
+            const closeBtn = document.querySelector('.dialog-wrapper .m-dialog__close-btn');
+            const cancelBtn = document.querySelector('.dialog-wrapper .cancel-btn');
+            const confirmBtn = document.querySelector('.dialog-wrapper .submit-btn');
+            confirmBtn.onclick = this.closeDialog;
+            closeBtn.onclick = this.closeDialog;
+            cancelBtn.onclick = this.closeDialog;
+            const submitBtn = document.querySelector('.form-wrapper .submit-btn');
+            submitBtn.onclick = async () => {
+                const error = this.validateForm();
+                if (error.isVaild) {
+                    const formdata = new FormData(document.querySelector('.form-wrapper .add-form'));
+                    console.log(formdata);
+                    const formDataJSON = {};
+                    formdata.forEach((value, key) => {
+                        formDataJSON[key] = value;
+                    });
+                    console.log(formDataJSON);
+                    try {
+                        let result = await fetch('https://cukcuk.manhnv.net/api/v1/Employees', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(formDataJSON),
+                        });
+                        console.log(result);
+                        result = await result.json();
+                        console.log(result);
+                        if (result.errors) {
+                            throw new Error(result.errors.EmployeeCode[0]);
+                        }
+                    } catch (error) {
+                        this.showDialog('Lỗi', error.message);
+                        return
+                    }
+                   
 
-                this.showDialog(result.statusText, "Thêm khách hàng thành công!");
+                    this.showDialog('Thông báo', "Thêm khách hàng thành công!");
+                    confirmBtn.onclick = () => {
+                        window.location.reload();
+                    }
 
-            } else {
+                } else {
 
-                error.focus_element.focus();
+                    error.focus_element.focus();
+                }
             }
+        } catch (error) {
+            this.showDialog("Lỗi", "Có lỗi xảy ra khi thêm khách hàng!");
         }
 
     }
@@ -209,14 +234,73 @@ class CustomerPage {
                 method: 'GET',
             });
             const data = await result.json();
-            console.log(data);
-
             this.showAddForm(data);
+            const submitBtn = document.querySelector('.form-wrapper .submit-btn');
+            const closeBtn = document.querySelector('.dialog-wrapper .m-dialog__close-btn');
+            const cancelBtn = document.querySelector('.dialog-wrapper .cancel-btn');
+            const confirmBtn = document.querySelector('.dialog-wrapper .submit-btn');
+            confirmBtn.onclick = this.closeDialog;
+            closeBtn.onclick = this.closeDialog;
+            cancelBtn.onclick = this.closeDialog;
+
+            submitBtn.onclick = async () => {
+                const error = this.validateForm();
+                if (error.isVaild) {
+                    const formdata = new FormData(document.querySelector('.form-wrapper .add-form'));
+                    console.log(formdata);
+                    const formDataJSON = {};
+                    formdata.forEach((value, key) => {
+                        formDataJSON[key] = value;
+                    });
+                    console.log(formDataJSON);
+                    try {
+                        let result = await fetch(`https://cukcuk.manhnv.net/api/v1/Employees/${id}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(formDataJSON),
+                        });
+                        result = await result.json();
+                        if (result.errors) {
+                            throw new Error(result.errors.EmployeeCode[0]);
+                        }
+                    } catch (error) {
+                        this.showDialog('Lỗi', error.message);
+                        return
+                    }
+                  
+                    this.showDialog(result.statusText, "Sửa khách hàng thành công!");
+                    confirmBtn.onclick = () => {
+                        window.location.reload();
+                    }
+
+
+                } else {
+
+                    error.focus_element.focus();
+                }
+            }
         }
         const form = document.querySelector('.form-wrapper .add-form');
 
 
 
+    }
+
+    searchEmployee() {
+        const search = document.querySelector('#search');
+        const employeeName = document.querySelectorAll('.data-table tbody tr td:nth-child(3)');
+        search.onkeyup = async () => {
+            const value = search.value;
+            for (let name of employeeName) {
+                if (name.textContent.includes(value)) {
+                    name.closest('tr').style.display = '';
+                } else {
+                    name.closest('tr').style.display = 'none';
+                }
+            }
+        }
     }
 
 

@@ -218,6 +218,14 @@ nav .menu .menu-item.active {
 
 }
 
+#record-per-page {
+    outline: none;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+
+}
+
 .error-msg {
     color: red;
     font-size: 12px;
