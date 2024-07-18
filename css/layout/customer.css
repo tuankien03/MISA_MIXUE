@@ -319,6 +319,17 @@ nav .menu .menu-item.active {
     float: right;
 }
 
+.content .toolbar .export-btn:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.content .toolbar .export-btn:active {
+    background-color: #dcdcdc;
+}
+
+
+
 .content .toolbar .export-btn img {
     height: 20px;
 }
@@ -335,6 +346,16 @@ nav .menu .menu-item.active {
     float: right;
 }
 
+.content .toolbar .reload-btn:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+.content .toolbar .reload-btn:active {
+    background-color: #dcdcdc;
+}
+
+
+
 .content .toolbar .reload-btn img {
     height: 20px;
 }
@@ -343,13 +364,14 @@ nav .menu .menu-item.active {
 .content .table-wrapper {
     overflow-y: auto;
     position: relative;
+    width: calc(100% - 24px);
     height: calc(100% - 56px - 56px);  
     top: 12px;
     margin: 12px; 
 }
 
 .content .data-table {
-    width: 100%; 
+    width: 100%;
     background-color: #f6f6f6;
 }
 
@@ -396,6 +418,8 @@ nav .menu .menu-item.active {
     background-color: white;
     padding: 0 12px;
     text-wrap: nowrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .content .pagination {
