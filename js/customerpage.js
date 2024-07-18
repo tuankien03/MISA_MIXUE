@@ -21,9 +21,7 @@ class CustomerPage {
         this.onclickEditEmployee();
         this.searchEmployee();
         this.addEmployee();
-        this.showDataToTable(this.data, this.currentPage);
-        this.onClickNextPage();
-        this.onClickPreviousPage();
+        this.onclickReload();
 
     }
 
@@ -43,82 +41,21 @@ class CustomerPage {
     */
     async loadData() {
         try {
+            this.loadingStatusOn();
             const employee = await fetch('https://cukcuk.manhnv.net/api/v1/Employees');
             const data = await employee.json();
-            console.log(data);
-            return data;
-
-        } catch (error) {
-            console.log('error::', error);
-
-        }
-    }
-
-
-    /**
-     * click vào chuyền trang tiếp theo
-     */
-    onClickNextPage() {
-        const nextBtn = document.querySelector('.page .nextpage-btn');
-        console.log(nextBtn);
-
-        nextBtn.onclick = this.nextPage.bind(this);
-    }
-
-    /**
-     * hiền thị trang tiếp theo
-     */
-    nextPage() {
-
-        if(this.currentPage * 100 >= this.data.length) {
-            return;
-        }
-        this.currentPage++;
-        
-        this.showDataToTable(this.data, this.currentPage);
-    }
-
-    /**
-     * click vào chuyền trang trước
-     */
-    onClickPreviousPage() {
-        const previousBtn = document.querySelector('.page .previouspage-btn');
-        previousBtn.onclick = this.previousPage.bind(this);
-    }
-
-    /**
-     * hiển thị trang trước
-     */
-    previousPage() {
-        if(this.currentPage === 1) {
-            return;
-        }
-        this.currentPage--;
-        this.showDataToTable(this.data, this.currentPage);
-    }
-
-   
-
-    /**
-     * Hiển thị dữ liệu lên bảng
-     */
-    showDataToTable(data, page = 1) {
-        console.log(this.data);
-        const table = document.querySelector('.data-table tbody');
-        table.innerHTML = '';
-        const start = (page - 1) * 100;
-        const end = page * 100;
-        for (let i = start; i < end; i++) {
-            const tr = document.createElement('tr');
-            let gender = '';
-            if (data[i].Gender === 0) {
-                gender = 'Nam';
-            } else if (data[i].Gender === 1) {
-                gender = 'Nữ';
-            } else {
-                gender = 'Khác';
-            }
-            const date = new Date(data[i].DateOfBirth);
+            const table = document.querySelector('.data-table tbody');
+            for (let i = 0; i < data.length; i++) {
+                const tr = document.createElement('tr');
+                let gender = '';
+                if (data[i].Gender === 0) {
+                    gender = 'Nam';
+                } else if (data[i].Gender === 1) {
+                    gender = 'Nữ';
+                } else {
+                    gender = 'Khác';
+                }
+                const date = new Date(data[i].DateOfBirth);
 
             // Lấy ngày, tháng, năm từ đối tượng Date
             const day = String(date.getDate()).padStart(2, '0');
@@ -142,12 +79,36 @@ class CustomerPage {
                         </div>
                     </td>
                 `;
-            table.appendChild(tr);
+                table.appendChild(tr);
+            }
+            this.loadingStatusOff();
+
+        } catch (error) {
+            console.log('error::', error);
+
         }
     }
 
-    
+    reloadData() {
+        const table = document.querySelector('.data-table tbody');
+        table.innerHTML = '';
+        this.loadData();
+    }
 
+    onclickReload() {
+        const reloadBtn = document.querySelector('.content .toolbar .reload-btn');
+        reloadBtn.onclick = this.reloadData.bind(this);
+    }
+
+    loadingStatusOn() {
+        const loading = document.querySelector('#loading-bar-spinner.spinner');
+        loading.style.display = 'block';
+    }
+
+    loadingStatusOff() {
+        const loading = document.querySelector('#loading-bar-spinner.spinner');
+        loading.style.display = 'none';
+    }
 
     /**
      * Xóa khách hàng
@@ -204,7 +165,6 @@ class CustomerPage {
         console.log(this.currentPage);
         const form = document.querySelector('.form-wrapper');
         form.style.display = 'flex';
-        console.log(data);
         if (data['EmployeeId']) {
             const inputs = document.querySelectorAll('.form-wrapper input');
             for (let input of inputs) {
@@ -246,12 +206,10 @@ class CustomerPage {
                 const error = this.validateForm();
                 if (error.isVaild) {
                     const formdata = new FormData(document.querySelector('.form-wrapper .add-form'));
-                    console.log(formdata);
                     const formDataJSON = {};
                     formdata.forEach((value, key) => {
                         formDataJSON[key] = value;
                     });
-                    console.log(formDataJSON);
                     try {
                         let result = await fetch('https://cukcuk.manhnv.net/api/v1/Employees', {
                             method: 'POST',
@@ -260,9 +218,9 @@ class CustomerPage {
                             },
                             body: JSON.stringify(formDataJSON),
                         });
-                        console.log(result);
+
                         result = await result.json();
-                        console.log(result);
+
                         if (result.errors) {
                             throw new Error(result.errors.EmployeeCode[0]);
                         }
@@ -324,12 +282,11 @@ class CustomerPage {
                 const error = this.validateForm();
                 if (error.isVaild) {
                     const formdata = new FormData(document.querySelector('.form-wrapper .add-form'));
-                    console.log(formdata);
+
                     const formDataJSON = {};
                     formdata.forEach((value, key) => {
                         formDataJSON[key] = value;
                     });
-                    console.log(formDataJSON);
                     try {
                         let result = await fetch(`https://cukcuk.manhnv.net/api/v1/Employees/${id}`, {
                             method: 'PUT',
@@ -370,15 +327,17 @@ class CustomerPage {
      */
     searchEmployee() {
         const search = document.querySelector('#search');
-        search.onkeyup = async () => {
+        const employeeName = document.querySelectorAll('.data-table tbody tr td:nth-child(3)');
+        const employeeCode = document.querySelectorAll('.data-table tbody tr td:nth-child(2)');
+        search.oninput = () => {
             const value = search.value;
-            let searchResult = [];
-            this.data.forEach((item, index) => {
-                if (item.FullName.toLowerCase().includes(value.toLowerCase())) {
-                    searchResult.push(item);
+            for (let i = 0; i < employeeName.length; i++) {
+                if (employeeName[i].textContent.toLowerCase().includes(value.toLowerCase()) || employeeCode[i].textContent.toLowerCase().includes(value.toLowerCase())) {
+                    employeeName[i].closest('tr').style.display = '';
+                } else {
+                    employeeName[i].closest('tr').style.display = 'none';
                 }
-            });
-            this.showDataToTable(searchResult);
+            }
         }
     }
 
@@ -415,6 +374,7 @@ class CustomerPage {
             focus_element: null,
         }
         const inputs = document.querySelectorAll('.form-wrapper input[required]');
+        const inputEmail = document.querySelector('.form-wrapper input[type="email"]');
         for (let input of inputs) {
             let text = input.previousElementSibling.innerText;
             text = text.slice(0, -1);
@@ -440,6 +400,35 @@ class CustomerPage {
                 }
             }
         }
+
+        const email = inputEmail.value;
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        console.log(email);
+        console.log(email.match(emailPattern));
+        if (!email.match(emailPattern)) {
+            error.isVaild = false;
+            console.log('email không hợp lệ');
+            if (error.focus_element === null) {
+                error.focus_element = inputEmail;
+            }
+            const label = inputEmail.previousElementSibling;
+            if (label.querySelector('.error-msg')) {
+                return;
+            } else {
+                const span = document.createElement('span');
+                span.className = 'error-msg';
+                span.innerText = 'Email không hợp lệ';
+                label.appendChild(span);
+            }
+        } else {
+            const label = inputEmail.previousElementSibling;
+            const span = label.querySelector('.error-msg');
+            if (span) {
+                span.remove();
+            }
+        }
+
+        console.log(error);
 
         return error;
     }

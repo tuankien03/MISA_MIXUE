@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/layout/customer.css">
     <link rel="stylesheet" href="/css/components/form.css">
     <link rel="stylesheet" href="/css/components/combobox.css">
+    <link rel="stylesheet" href="/css/components/loading.css">
 
 </head>
 
@@ -33,17 +34,18 @@
             <span class="m-dialog__close-btn"><img class="m-icon-24" src="/assets/icon/close-48.png" alt=""></span>
             <div class="m-dialog__header">Title</div>
             <div class="m-dialog__content">
-                    <img class="m-icon-24" src="/assets/icon/warning-48.png" alt="">
-                    <span>Bạn có muốn xoá khách hàng này không</span>
+                <img class="m-icon-24" src="/assets/icon/warning-48.png" alt="">
+                <span>Bạn có muốn xoá khách hàng này không</span>
             </div>
             <div class="m-dialog__footer">
                 <button class="m-btn m-second-btn cancel-btn">Hủy</button>
                 <button class="m-btn  m-main-btn submit-btn">Xác nhận</button>
-            
+
             </div>
         </div>
     </div>
-</div>
+    </div>
+    
     <div class="form-wrapper">
         <form action="" class="add-form">
             <div class="form-header">
@@ -69,9 +71,9 @@
                         <div class="form-group__item m-input">
                             <label for="gender">Giới tính</label>
                             <div class="radio-group">
-                                <input type="radio" name="gender" value="0" >Nam</label>
-                                <input type="radio" name="gender" value="1" > <span>Nữ</span>
-                                <input type="radio" name="gender" value="2" > <span>Khác</span>
+                                <input type="radio" name="gender" value="0">Nam</label>
+                                <input type="radio" name="gender" value="1"> <span>Nữ</span>
+                                <input type="radio" name="gender" value="2"> <span>Khác</span>
                             </div>
                         </div>
                     </div>
@@ -84,7 +86,7 @@
                             <input type="text" name="positionName" hidden>
                             <div class="input-wrapper">
                                 <div class="tag-container">
-                                    <input type="text" class="search-input" placeholder="Chọn vị trí" >
+                                    <input type="text" class="search-input" placeholder="Chọn vị trí">
 
                                 </div>
                                 <div class="dropdown"><img class="icon" src="/assets/icon/btn-next-page.svg" alt="">
@@ -179,7 +181,7 @@
     </div>
     </div>
 
-   
+
 
     <div class="wrap-container">
 
@@ -206,7 +208,8 @@
 
             <div class="header-content">
                 <h1>Quản lí nhân viên</h1>
-                <div class="m-main-btn addition-btn"><img class="m-icon-20" src="../assets/icon/add.png" alt="">Thêm mới</div>
+                <div class="m-main-btn addition-btn"><img class="m-icon-20" src="../assets/icon/add.png" alt="">Thêm mới
+                </div>
             </div>
             <div class="content">
                 <div class="toolbar">
@@ -215,8 +218,8 @@
                         <button class="search-btn"><img src="../assets/icon/search.png" alt="icon"></button>
                     </div>
                     <div class="toolbar-container-right">
-                        <div class="export-btn"><img src="../assets/icon/refresh.png" alt=""></div>
-                        <div class="reload-btn"><img src="../assets/icon/export-excel-50.png" alt=""></div>
+                        <div class="reload-btn"><img src="../assets/icon/refresh.png" alt=""></div>
+                        <div class="export-btn"><img src="../assets/icon/export-excel-50.png" alt=""></div>
                     </div>
                 </div>
                 <div class="table-wrapper">
@@ -233,9 +236,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
-                            
+                           
                         </tbody>
+                        <div id="loading-bar-spinner" class="spinner">
+                            <div class="spinner-icon"></div>
+                        </div>
                     </table>
                 </div>
                 <div class="pagination">
