@@ -1,7 +1,7 @@
-
-
 class CustomerPage {
     constructor() {
+        this.currentPage = 1;
+        this.data = 'data';
         this.initEvents();
     }
 
@@ -12,19 +12,25 @@ class CustomerPage {
 
     async initEvents() {
 
-
         // Click button để đóng form thêm mới
         const closebtn = document.querySelector('.form-wrapper .cancel-btn');
         closebtn.onclick = this.closeAddForm;
 
-        await this.loadData();
+        this.data = await this.loadData();
         this.deleteCustomer();
         this.onclickEditEmployee();
         this.searchEmployee();
         this.addEmployee();
+        this.showDataToTable(this.data, this.currentPage);
+        this.onClickNextPage();
+        this.onClickPreviousPage();
 
     }
 
+    /**
+     * Thêm khách hàng
+     * author: NT Kiên (22/06/2024)
+     */
     addEmployee() {
         const addBtn = document.querySelector('.addition-btn');
         addBtn.onclick = this.showAddForm;
@@ -40,27 +46,88 @@ class CustomerPage {
             const employee = await fetch('https://cukcuk.manhnv.net/api/v1/Employees');
             const data = await employee.json();
             console.log(data);
-            const table = document.querySelector('.data-table tbody');
-            for (let i = 0; i < data.length; i++) {
-                const tr = document.createElement('tr');
-                let gender = '';
-                if (data[i].Gender === 0) {
-                    gender = 'Nam';
-                } else if (data[i].Gender === 1) {
-                    gender = 'Nữ';
-                } else {
-                    gender = 'Khác';
-                }
-                const date = new Date(data[i].DateOfBirth);
+            return data;
 
-                // Lấy ngày, tháng, năm từ đối tượng Date
-                const day = String(date.getDate()).padStart(2, '0');
-                const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() trả về giá trị từ 0-11, nên cần +1
-                const year = date.getFullYear();
+        } catch (error) {
+            console.log('error::', error);
 
-                // Tạo chuỗi thời gian theo định dạng "DD/MM/YYYY"
-                const formattedDate = `${day}/${month}/${year}`;
-                tr.innerHTML = `
+        }
+    }
+
+
+    /**
+     * click vào chuyền trang tiếp theo
+     */
+    onClickNextPage() {
+        const nextBtn = document.querySelector('.page .nextpage-btn');
+        console.log(nextBtn);
+
+        nextBtn.onclick = this.nextPage.bind(this);
+    }
+
+    /**
+     * hiền thị trang tiếp theo
+     */
+    nextPage() {
+
+        if(this.currentPage * 100 >= this.data.length) {
+            return;
+        }
+        this.currentPage++;
+        
+        this.showDataToTable(this.data, this.currentPage);
+    }
+
+    /**
+     * click vào chuyền trang trước
+     */
+    onClickPreviousPage() {
+        const previousBtn = document.querySelector('.page .previouspage-btn');
+        previousBtn.onclick = this.previousPage.bind(this);
+    }
+
+    /**
+     * hiển thị trang trước
+     */
+    previousPage() {
+        if(this.currentPage === 1) {
+            return;
+        }
+        this.currentPage--;
+        this.showDataToTable(this.data, this.currentPage);
+    }
+
+   
+
+    /**
+     * Hiển thị dữ liệu lên bảng
+     */
+    showDataToTable(data, page = 1) {
+        console.log(this.data);
+        const table = document.querySelector('.data-table tbody');
+        table.innerHTML = '';
+        const start = (page - 1) * 100;
+        const end = page * 100;
+        for (let i = start; i < end; i++) {
+            const tr = document.createElement('tr');
+            let gender = '';
+            if (data[i].Gender === 0) {
+                gender = 'Nam';
+            } else if (data[i].Gender === 1) {
+                gender = 'Nữ';
+            } else {
+                gender = 'Khác';
+            }
+            const date = new Date(data[i].DateOfBirth);
+
+            // Lấy ngày, tháng, năm từ đối tượng Date
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() trả về giá trị từ 0-11, nên cần +1
+            const year = date.getFullYear();
+
+            // Tạo chuỗi thời gian theo định dạng "DD/MM/YYYY"
+            const formattedDate = `${day}/${month}/${year}`;
+            tr.innerHTML = `
                     <td>${i + 1}</td>
                     <td>${data[i].EmployeeCode}</td>
                     <td>${data[i].FullName}</td>
@@ -75,14 +142,12 @@ class CustomerPage {
                         </div>
                     </td>
                 `;
-                table.appendChild(tr);
-            }
-
-        } catch (error) {
-            console.log('error::', error);
-
+            table.appendChild(tr);
         }
     }
+
+    
+
 
     /**
      * Xóa khách hàng
@@ -119,6 +184,10 @@ class CustomerPage {
 
     }
 
+
+    /**
+     * Viết hoa chữ cái đầu tiên
+     */
     upperCaseFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
@@ -131,6 +200,8 @@ class CustomerPage {
      * author: NT Kiên (22/06/2024)
      */
     showAddForm(data = undefined) {
+        console.log(this.data);
+        console.log(this.currentPage);
         const form = document.querySelector('.form-wrapper');
         form.style.display = 'flex';
         console.log(data);
@@ -199,7 +270,7 @@ class CustomerPage {
                         this.showDialog('Lỗi', error.message);
                         return
                     }
-                   
+
 
                     this.showDialog('Thông báo', "Thêm khách hàng thành công!");
                     confirmBtn.onclick = () => {
@@ -217,7 +288,9 @@ class CustomerPage {
 
     }
 
-
+    /**
+     * Sửa khách hàng khi click vào nút sửa
+     */
     onclickEditEmployee() {
         const editBtns = document.querySelectorAll('.crud .edit-btn');
         for (let btn of editBtns) {
@@ -228,6 +301,9 @@ class CustomerPage {
         }
     }
 
+    /**
+     * Sửa khách hàng
+     */
     async updateEmployee(id) {
         if (id) {
             const result = await fetch(`https://cukcuk.manhnv.net/api/v1/Employees/${id}`, {
@@ -269,7 +345,7 @@ class CustomerPage {
                         this.showDialog('Lỗi', error.message);
                         return
                     }
-                  
+
                     this.showDialog(result.statusText, "Sửa khách hàng thành công!");
                     confirmBtn.onclick = () => {
                         window.location.reload();
@@ -288,6 +364,9 @@ class CustomerPage {
 
     }
 
+    /**
+     * Tìm kiếm khách hàng
+     */
     searchEmployee() {
         const search = document.querySelector('#search');
         const employeeName = document.querySelectorAll('.data-table tbody tr td:nth-child(3)');
@@ -365,6 +444,10 @@ class CustomerPage {
         return error;
     }
 
+    /**
+     * Hiển thị dialog
+     * author: NT Kiên (22/06/2024)
+     */
     showDialog(title, content) {
         const dialog = document.querySelector('.dialog-wrapper');
         const d_title = document.querySelector('.dialog-wrapper .m-dialog__header');
@@ -375,6 +458,9 @@ class CustomerPage {
         dialog.style.display = 'flex';
     }
 
+    /**
+     * Đóng dialog
+     */
     closeDialog() {
         const dialog = document.querySelector('.dialog-wrapper');
         dialog.style.display = 'none';
