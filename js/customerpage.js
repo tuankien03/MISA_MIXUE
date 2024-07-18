@@ -299,6 +299,7 @@ class CustomerPage {
                 this.updateEmployee(id);
             }
         }
+        console.log('test');
     }
 
     /**
@@ -369,16 +370,15 @@ class CustomerPage {
      */
     searchEmployee() {
         const search = document.querySelector('#search');
-        const employeeName = document.querySelectorAll('.data-table tbody tr td:nth-child(3)');
         search.onkeyup = async () => {
             const value = search.value;
-            for (let name of employeeName) {
-                if (name.textContent.includes(value)) {
-                    name.closest('tr').style.display = '';
-                } else {
-                    name.closest('tr').style.display = 'none';
+            let searchResult = [];
+            this.data.forEach((item, index) => {
+                if (item.FullName.toLowerCase().includes(value.toLowerCase())) {
+                    searchResult.push(item);
                 }
-            }
+            });
+            this.showDataToTable(searchResult);
         }
     }
 
